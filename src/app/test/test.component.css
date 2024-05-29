@@ -1,0 +1,9 @@
+.text-sucess{
+    color : green
+}
+.text-fail{
+    color : red
+}
+.text-special{
+    font-style: italic;    
+}

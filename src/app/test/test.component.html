@@ -1,0 +1,37 @@
+<h2 #myVariable >Welcome {{name}}</h2>
+<button (click) = "onClick()">button</button>
+
+<label>TRUE
+    <input [(ngModel)]="data" type = "radio" name = "con" value = "true" /> 
+</label>
+<label>FALSE
+    <input [(ngModel)]="data" type = "radio" name = "con" value = "" /> 
+</label>
+
+<div *ngIf = "data; then ifcon; else elsecon"></div>
+    
+<ng-template #ifcon>
+<h2 >This content display with true condition</h2>
+</ng-template>
+<ng-template #elsecon>
+    <h2 >This content will dispaly with false condition</h2> 
+</ng-template>
+<br>
+<br>
+<label>Write a color: 
+<input [(ngModel)] = "color" type ="text" placeholder="exaple: red"/>
+</label>
+<div [ngSwitch] = "color">
+    <h2 *ngSwitchCase = "'red'">Red color picked </h2>
+    <h2 *ngSwitchCase = "'yello'">Yellow color picked</h2>
+    <h2 *ngSwitchCase = "'green'">Green color picked</h2>
+    <h2 *ngSwitchDefault>Try again</h2>
+</div>
+<h2>This Data is coming from app component - {{title}}</h2>
+
+<h2>Sending data from test component to app component</h2>
+<input type = "text" [(ngModel)] = "pmsg" />
+<br>
+<button (click) = "send()">Send</button>
+
+
