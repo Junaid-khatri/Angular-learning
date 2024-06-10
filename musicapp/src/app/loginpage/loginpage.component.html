@@ -1,0 +1,24 @@
+<div  class="container-fluid">
+    <div>
+        <p *ngIf="isError">Incorrect Login Username or Password</p>
+    </div>
+    <h1>Login</h1>
+    
+    
+    <form [formGroup]="loginForm">
+
+        <div class="form-group">
+            <label>UserName</label>
+            <input type="text" class="form-control" formControlName="userName"/>
+        </div>
+
+        <div>
+            <label>Password</label>
+            <input type="text" class="form-control" formControlName="password"/>
+        </div>
+
+        <button type="submit" (click)="onLogin()">Login</button>
+
+    </form>
+
+</div>
