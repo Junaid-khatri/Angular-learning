@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { EmailValidator, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, EmailValidator, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {LoginService} from '../login.service';
   
 
@@ -19,11 +19,11 @@ export class RegistrationComponent implements OnInit{
     this.registrationForm = this.formBuilder.group({
       firstName:['',[Validators.required,Validators.minLength(3),Validators.maxLength(20)]],
       lastName:[''],
-      role:['',[Validators.required]],
+      role:['Employee',[Validators.required]],
       password:['',[Validators.required,Validators.minLength(8),Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/)]],
       confirmPassword:['',[]],
       email:['',[Validators.required,Validators.email,Validators.pattern(/@eidiko-india\.com$/)]],
-      gender:['',[Validators.required]],
+      gender:['Male',[Validators.required]],
       employeeId:['',[Validators.required,Validators.max(9999)]],
       phoneNu:['',[Validators.required,Validators.pattern(/^[6-9]\d{9}$/)]],
       address:this.formBuilder.group({
@@ -35,12 +35,19 @@ export class RegistrationComponent implements OnInit{
         state:['',[Validators.required]],
         pincode:['',[Validators.required]]
       })
-    });
+    },
+    { validators: this.passwordMatchValidator }
+  );
     
   }
 
-  get email() {
-    return this.registrationForm.get('email');
+  passwordMatchValidator(form: FormGroup) {
+    const password = form.get('password')?.value;
+    const confirmPassword = form.get('confirmPassword')?.value;
+    if (password !== confirmPassword) {
+      return { passwordsNotMatching: true };
+    }
+    return null;
   }
 
   onSingup(){
