@@ -1,3 +1,5 @@
+{{registrationForm.value|json}}
+
 <div class="page-content">
     <h1>Welcom to Eidiko Application</h1>
     <form [formGroup]="registrationForm" (ngSubmit)="onSingup()">
@@ -16,8 +18,8 @@
                         placeholder="Last Name">
                 </div>
 
-                <div class="form-row">
-                    <select formControlName="role" id="role" class="form-control">
+                <div class="form-row" formGroupName="role">
+                    <select formControlName="roleName" id="role" class="form-control">
                         <option value="Employee" selected>Employee</option>
                         <option value="Admin">Admin</option>
                         <option value="Hr">Hr</option>
@@ -66,59 +68,61 @@
 
                     <input type="password" formControlName="confirmPassword" id="confirmPassword" class="form-control"
                         placeholder="Confirm Password">
-                        <small *ngIf="registrationForm.errors?.['passwordsNotMatching'] && registrationForm.get('confirmPassword')?.touched">Password and Confirm Password do not match</small>
+                    <small
+                        *ngIf="registrationForm.errors?.['passwordsNotMatching'] && registrationForm.get('confirmPassword')?.touched">Password
+                        and Confirm Password do not match</small>
                 </div>
 
             </div>
-            <div class="right" formGroupName="address">
-                <h2>Address Details</h2>
-
-                <div class="form-row">
-                    <input type="text" formControlName="doorNu" id="doorNu" class="form-control"
-                        placeholder="Door Number">
-                    <small
-                        *ngIf="registrationForm.get('address.doorNu')?.invalid && registrationForm.get('address.doorNu')?.touched">*required</small>
+            <div class="right">
+                <div formArrayName="addresses">
+                        <div [formControlName]="addresses[0]">
+                        <h2>Address Details</h2>
+                        <div class="form-row">
+                            <input type="text" formControlName="addresses[0].doorNu" id="doorNu" class="form-control"
+                                placeholder="Door Number">
+                            <small *ngIf="addresses[0].get('doorNu').invalid && addresses[0].get('doorNu').touched">*required</small>
+                        </div>
+                        <div class="form-row">
+                            <input type="text" formControlName="streetName" id="streetName" class="form-control"
+                                placeholder="Street Name + Number">
+                            <small
+                                *ngIf="addresses[0].get('streetName').invalid && addresses[0].get('streetName').touched">*required</small>
+                        </div>
+                        <div class="form-row">
+                            <input type="text" formControlName="area" id="area" class="form-control" placeholder="Area">
+                            <small *ngIf="addresses[0].get('area').invalid && addresses[0].get('area').touched">*required</small>
+                        </div>
+                        <div class="form-row">
+                            <input type="text" formControlName="landmark" id="landmark" class="form-control"
+                                placeholder="Landmark">
+                            <small
+                                *ngIf="addresses[0].get('landmark').invalid && addresses[0].get('landmark').touched">*required</small>
+                        </div>
+                        <div class="form-row">
+                            <input type="text" formControlName="city" id="city" class="form-control" placeholder="City">
+                            <small *ngIf="addresses[0].get('city').invalid && addresses[0].get('city').touched">*required</small>
+                        </div>
+                        <div class="form-row">
+                            <input type="text" formControlName="state" id="state" class="form-control"
+                                placeholder="State">
+                            <small *ngIf="addresses[0].get('state').invalid && addresses[0].get('state').touched">*required</small>
+                        </div>
+                        <div class="form-row">
+                            <input type="number" formControlName="pincode" id="pincode" class="form-control"
+                                placeholder="Pincode">
+                            <small *ngIf="addresses[0].get('pincode').invalid && addresses[0].get('pincode').touched">*required</small>
+                        </div>
+                    </div>
+                    
                 </div>
-                <div class="form-row">
-                    <input type="text" formControlName="streetName" id="streetName" class="form-control"
-                        placeholder="Street Name + Number">
-                    <small
-                        *ngIf="registrationForm.get('address.streetName')?.invalid && registrationForm.get('address.streetName')?.touched">*required</small>
-                </div>
-                <div class="form-row">
-                    <input type="text" formControlName="area" id="area" class="form-control" placeholder="Area">
-                    <small
-                        *ngIf="registrationForm.get('address.area')?.invalid && registrationForm.get('address.area')?.touched">*required</small>
-                </div>
-                <div class="form-row">
-                    <input type="text" formControlName="landmark" id="landmark" class="form-control"
-                        placeholder="Landmark">
-                    <small
-                        *ngIf="registrationForm.get('address.landmark')?.invalid && registrationForm.get('address.landmark')?.touched">*required</small>
-                </div>
-                <div class="form-row">
-                    <input type="text" formControlName="city" id="city" class="form-control" placeholder="City">
-                    <small
-                        *ngIf="registrationForm.get('address.city')?.invalid && registrationForm.get('address.city')?.touched">*required</small>
-                </div>
-                <div class="form-row">
-                    <input type="text" formControlName="state" id="state" class="form-control" placeholder="State">
-                    <small
-                        *ngIf="registrationForm.get('address.state')?.invalid && registrationForm.get('address.state')?.touched">*required</small>
-                </div>
-                <div class="form-row">
-                    <input type="number" formControlName="pincode" id="pincode" class="form-control"
-                        placeholder="Pincode">
-                    <small
-                        *ngIf="registrationForm.get('address.pincode')?.invalid && registrationForm.get('address.pincode')?.touched">*required</small>
-                </div>
-
-                <div class="form-row-last">
-                    <button type="submit" class="register" [disabled]="registrationForm.invalid">SignUp</button>
-                    <button type="button" class="secondary">Login</button>
-                </div>
+                <button type="submit">Register</button>
+                <button>Login</button>
             </div>
+
         </div>
+        
+
     </form>
 
 </div>

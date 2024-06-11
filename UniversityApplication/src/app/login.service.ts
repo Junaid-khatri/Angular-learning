@@ -7,7 +7,7 @@ import { Observable, ObservableInput } from 'rxjs';
 })
 export class LoginService {
 
-  url = "http://localhost8080/register";
+  url = "http://localhost:8081/api/save";
 
   constructor(private http:HttpClient) { }
 
